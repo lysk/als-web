@@ -1,0 +1,67 @@
+
+> als-web@0.1.0 lint
+> eslint
+
+
+C:\Users\tony\AICoding\AnimeLastStand\als-web\app\calculator\calculator-client.tsx
+   17:11  warning  'techniques' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  257:5   warning  'units' is defined but never used                @typescript-eslint/no-unused-vars
+
+C:\Users\tony\AICoding\AnimeLastStand\als-web\app\codes\page.tsx
+  147:79  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`                                                                                        react/no-unescaped-entities
+  147:85  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`                                                                                        react/no-unescaped-entities
+  175:74  error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`                                                                                        react/no-unescaped-entities
+  200:93  error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`                                                                                        react/no-unescaped-entities
+  201:31  error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`                                                                                        react/no-unescaped-entities
+  208:36  error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`                                                                                        react/no-unescaped-entities
+  211:42  error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`                                                                                        react/no-unescaped-entities
+  214:46  error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`                                                                                        react/no-unescaped-entities
+  214:80  error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`                                                                                        react/no-unescaped-entities
+  217:43  error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`                                                                                        react/no-unescaped-entities
+  245:17  error  Do not use an `<a>` element to navigate to `/`. Use `<Link />` from `next/link` instead. See: https://nextjs.org/docs/messages/no-html-link-for-pages  @next/next/no-html-link-for-pages
+
+C:\Users\tony\AICoding\AnimeLastStand\als-web\app\layout.tsx
+  29:15  error  Do not use an `<a>` element to navigate to `/`. Use `<Link />` from `next/link` instead. See: https://nextjs.org/docs/messages/no-html-link-for-pages  @next/next/no-html-link-for-pages
+  33:17  error  Do not use an `<a>` element to navigate to `/`. Use `<Link />` from `next/link` instead. See: https://nextjs.org/docs/messages/no-html-link-for-pages  @next/next/no-html-link-for-pages
+
+C:\Users\tony\AICoding\AnimeLastStand\als-web\app\page.tsx
+  142:15  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  142:25  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  165:25  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  165:31  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  166:43  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  166:50  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+
+C:\Users\tony\AICoding\AnimeLastStand\als-web\app\tier-list\tier-list-client.tsx
+  187:29  error  Do not use an `<a>` element to navigate to `/`. Use `<Link />` from `next/link` instead. See: https://nextjs.org/docs/messages/no-html-link-for-pages  @next/next/no-html-link-for-pages
+  210:50  error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`                                                                                        react/no-unescaped-entities
+  220:17  error  Do not use an `<a>` element to navigate to `/`. Use `<Link />` from `next/link` instead. See: https://nextjs.org/docs/messages/no-html-link-for-pages  @next/next/no-html-link-for-pages
+
+C:\Users\tony\AICoding\AnimeLastStand\als-web\components\calculator\DPSCharts.tsx
+  45:36  warning  'idx' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\tony\AICoding\AnimeLastStand\als-web\components\calculator\TeamCalculator.tsx
+    4:16  warning  'Technique' is defined but never used           @typescript-eslint/no-unused-vars
+    5:10  warning  'optimizeTeamGreedy' is defined but never used  @typescript-eslint/no-unused-vars
+  131:35  warning  'maxLevel' is assigned a value but never used   @typescript-eslint/no-unused-vars
+
+C:\Users\tony\AICoding\AnimeLastStand\als-web\lib\services\code-service.ts
+  14:28  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\tony\AICoding\AnimeLastStand\als-web\lib\services\item-service.ts
+  14:28  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\tony\AICoding\AnimeLastStand\als-web\lib\services\technique-service.ts
+  14:28  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\tony\AICoding\AnimeLastStand\als-web\lib\services\tierlist-service.ts
+  14:29  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\tony\AICoding\AnimeLastStand\als-web\lib\services\unit-service.ts
+  24:48  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  26:31  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  27:28  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  80:24  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+鉁?36 problems (30 errors, 6 warnings)
+
