@@ -1,8 +1,7 @@
 import { getCodes } from '@/lib/services/code-service';
 import CodesClient from './codes-client';
 
-export const dynamic = 'force-dynamic';
-export const runtime = 'edge';
+
 
 export default async function CodesPage() {
     const allCodes = await getCodes();
