@@ -33,61 +33,72 @@ export default function CodesClient({ activeCodes, expiredCodes }: CodesClientPr
 
             {/* Active Codes */}
             <section className="mb-12">
-                <div className="flex items-center gap-2 mb-6">
-                    <h2 className="text-3xl font-bold">✅ Active Codes</h2>
-                    <span className="px-3 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-100 rounded-full text-sm font-medium">
-                        {activeCodes.length} codes
+                <div className="flex items-center gap-3 mb-6">
+                    <h2 className="text-3xl font-bold">Active Codes</h2>
+                    <span className="px-3 py-1 bg-green-500/10 text-green-600 dark:text-green-400 rounded-full text-sm font-bold border border-green-500/20">
+                        {activeCodes.length} Available
                     </span>
                 </div>
 
                 {activeCodes.length > 0 ? (
-                    <div className="grid gap-4 md:grid-cols-2">
+                    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                         {activeCodes.map((code) => (
                             <div
                                 key={code.id}
-                                className="border-2 border-green-500 rounded-lg p-5 bg-green-50 dark:bg-green-950 hover:shadow-lg transition-shadow"
+                                className="group relative border rounded-xl overflow-hidden bg-card hover:shadow-lg transition-all duration-300 hover:border-primary/50"
                             >
-                                <div className="flex items-start justify-between mb-3">
-                                    <div>
-                                        <h3 className="font-mono font-bold text-xl text-green-700 dark:text-green-300">
-                                            {code.code}
-                                        </h3>
-                                        {code.source?.type && (
-                                            <span className="text-xs text-muted-foreground">
-                                                {code.source.type}
-                                                {code.source.creator && ` - ${code.source.creator}`}
-                                            </span>
-                                        )}
-                                    </div>
-                                    <button
-                                        onClick={() => copyToClipboard(code.code)}
-                                        className={`px-4 py-2 rounded font-medium transition-colors ${copiedCode === code.code
-                                            ? 'bg-green-600 text-white'
-                                            : 'bg-primary text-primary-foreground hover:bg-primary/90'
-                                            }`}
-                                    >
-                                        {copiedCode === code.code ? '✓ Copied!' : 'Copy'}
-                                    </button>
-                                </div>
+                                {/* Glow Effect */}
+                                <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
 
-                                <div className="space-y-2">
-                                    <div className="font-semibold text-sm">Rewards:</div>
-                                    <div className="flex flex-wrap gap-2">
-                                        {code.rewards.map((reward, idx) => (
-                                            <span
-                                                key={idx}
-                                                className="px-3 py-1 bg-white dark:bg-gray-800 border rounded-full text-sm"
-                                            >
-                                                {reward.quantity}x {reward.itemType}
-                                            </span>
-                                        ))}
+                                <div className="p-5 relative z-10">
+                                    <div className="flex justify-between items-start mb-4">
+                                        <div>
+                                            <div className="text-xs text-muted-foreground uppercase font-bold tracking-wider mb-1">
+                                                Code
+                                            </div>
+                                            <div className="flex items-center gap-2">
+                                                <h3 className="font-mono font-black text-2xl tracking-tight text-primary">
+                                                    {code.code}
+                                                </h3>
+                                            </div>
+                                        </div>
+                                        <button
+                                            onClick={() => copyToClipboard(code.code)}
+                                            className={`h-9 px-4 rounded-lg font-medium text-sm transition-all duration-200 flex items-center gap-2 ${copiedCode === code.code
+                                                ? 'bg-green-500 text-white shadow-green-500/20 shadow-lg'
+                                                : 'bg-secondary hover:bg-primary hover:text-primary-foreground'
+                                                }`}
+                                        >
+                                            {copiedCode === code.code ? (
+                                                <>✓ Copied</>
+                                            ) : (
+                                                <>Copy</>
+                                            )}
+                                        </button>
+                                    </div>
+
+                                    <div className="space-y-3">
+                                        <div className="text-xs text-muted-foreground font-medium uppercase tracking-wider">
+                                            Rewards
+                                        </div>
+                                        <div className="flex flex-wrap gap-2">
+                                            {code.rewards.map((reward, idx) => (
+                                                <span
+                                                    key={idx}
+                                                    className="inline-flex items-center px-2.5 py-1 rounded-md bg-background border shadow-sm text-sm font-medium"
+                                                >
+                                                    <span className="text-primary mr-1.5 font-bold">{reward.quantity}x</span>
+                                                    <span className="text-foreground/80">{reward.itemType}</span>
+                                                </span>
+                                            ))}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         ))}
                     </div>
                 ) : (
-                    <div className="text-center py-12 border rounded-lg bg-muted/50">
+                    <div className="text-center py-12 border rounded-xl bg-muted/30 border-dashed">
                         <p className="text-lg text-muted-foreground">
                             No active codes available at the moment. Check back soon!
                         </p>
@@ -97,34 +108,54 @@ export default function CodesClient({ activeCodes, expiredCodes }: CodesClientPr
 
             {/* Expired Codes */}
             <section className="mb-12">
-                <button
-                    onClick={() => setShowExpired(!showExpired)}
-                    className="flex items-center gap-2 text-2xl font-bold mb-4 hover:text-primary transition-colors"
-                >
-                    <span>{showExpired ? '▼' : '▶'}</span>
-                    <h2>Expired Codes</h2>
-                    <span className="text-base text-muted-foreground">
-                        ({expiredCodes.length})
-                    </span>
-                </button>
+                <div className="border rounded-xl bg-card overflow-hidden">
+                    <button
+                        onClick={() => setShowExpired(!showExpired)}
+                        className="w-full flex items-center justify-between p-6 hover:bg-muted/50 transition-colors text-left"
+                    >
+                        <div className="flex items-center gap-3">
+                            <h2 className="text-xl font-bold text-muted-foreground">Expired Codes</h2>
+                            <span className="px-2.5 py-0.5 bg-muted rounded-full text-xs font-medium text-muted-foreground">
+                                {expiredCodes.length}
+                            </span>
+                        </div>
+                        <span className={`text-muted-foreground transition-transform duration-200 ${showExpired ? 'rotate-180' : ''}`}>
+                            ▼
+                        </span>
+                    </button>
 
-                {showExpired && (
-                    <div className="grid gap-3 md:grid-cols-3 lg:grid-cols-4">
-                        {expiredCodes.slice(0, 20).map((code) => (
-                            <div
-                                key={code.id}
-                                className="border rounded p-3 bg-muted/30 opacity-60"
-                            >
-                                <div className="font-mono font-semibold text-sm line-through">
-                                    {code.code}
-                                </div>
-                                <div className="text-xs text-muted-foreground mt-1">
-                                    {code.rewards[0]?.itemType || 'Various rewards'}
-                                </div>
+                    {showExpired && (
+                        <div className="border-t bg-muted/10">
+                            <div className="overflow-x-auto">
+                                <table className="w-full text-sm text-left">
+                                    <thead className="bg-muted/50 text-muted-foreground font-medium uppercase text-xs">
+                                        <tr>
+                                            <th className="px-6 py-3 w-1/3">Code</th>
+                                            <th className="px-6 py-3">Rewards</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody className="divide-y">
+                                        {expiredCodes.slice(0, 30).map((code) => (
+                                            <tr key={code.id} className="hover:bg-muted/30 transition-colors">
+                                                <td className="px-6 py-3 font-mono text-muted-foreground line-through decoration-muted-foreground/50">
+                                                    {code.code}
+                                                </td>
+                                                <td className="px-6 py-3 text-muted-foreground/80">
+                                                    {code.rewards.map(r => `${r.quantity}x ${r.itemType}`).join(', ')}
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
                             </div>
-                        ))}
-                    </div>
-                )}
+                            {expiredCodes.length > 30 && (
+                                <div className="p-4 text-center text-xs text-muted-foreground bg-muted/20 border-t">
+                                    Showing recent 30 expired codes
+                                </div>
+                            )}
+                        </div>
+                    )}
+                </div>
             </section>
 
             {/* How to Redeem Codes */}
@@ -149,7 +180,7 @@ export default function CodesClient({ activeCodes, expiredCodes }: CodesClientPr
                         will be added to your account instantly
                     </li>
                 </ol>
-                <p className="bg-yellow-50 dark:bg-yellow-950 border-l-4 border-yellow-500 p-4 my-4">
+                <p className="bg-yellow-50 dark:bg-yellow-950/40 border-l-4 border-yellow-500 p-4 my-4 text-yellow-800 dark:text-yellow-200 shadow-sm">
                     <strong>⚠️ Important:</strong> Codes are case-sensitive and must be entered
                     exactly as shown. Make sure to copy and paste to avoid typos!
                 </p>

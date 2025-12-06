@@ -24,6 +24,13 @@ export interface Unit {
     imageUrl?: string;
 }
 
+export interface UserUnit {
+    instanceId: string;
+    unitId: string;
+    level: number;
+    // Future expansion: techniques, traits, etc.
+}
+
 export interface Technique {
     id: string;
     name: string;
