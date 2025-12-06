@@ -2,6 +2,7 @@ import { getCodes } from '@/lib/services/code-service';
 import HomeClient from './home-client';
 
 export const dynamic = 'force-dynamic';
+export const runtime = 'edge';
 
 export default async function HomePage() {
   const codes = await getCodes();

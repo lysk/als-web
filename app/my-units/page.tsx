@@ -3,6 +3,7 @@ import { getUnits } from '@/lib/services/unit-service';
 import MyUnitsClient from './my-units-client';
 
 export const dynamic = 'force-dynamic';
+export const runtime = 'edge';
 
 export default async function MyUnitsPage() {
     // Fetch all available units to allow the user to select and add them to their pool
