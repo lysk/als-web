@@ -2,192 +2,142 @@
 
 import { Code } from '@/lib/types';
 import Link from 'next/link';
-import { DPSBarChart, DPSPieChart } from '@/components/calculator/DPSCharts';
+import { ToolCard } from '@/components/ui/ToolCard';
+import { Calculator, List, Database, Gift, Users, ExternalLink } from 'lucide-react';
 
 interface HomeClientProps {
     activeCodes: Code[];
 }
 
 export default function HomeClient({ activeCodes }: HomeClientProps) {
-    const displayCodes = activeCodes.slice(0, 5); // Show first 5 codes
+    const displayCodes = activeCodes.slice(0, 3); // Show top 3 codes
 
     return (
-        <div className="container mx-auto px-4 py-8">
-            {/* Hero Section with DPS Calculator */}
-            <section className="text-center py-12">
-                <h1 className="text-4xl md:text-5xl font-bold mb-4">
-                    Anime Last Stand Team Optimizer & Active Codes
-                </h1>
-                <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
-                    Build the perfect team in Anime Last Stand with our advanced{' '}
-                    <strong>DPS calculator</strong>. Get the latest{' '}
-                    <strong>active codes</strong> and <strong>tier lists</strong> to
-                    dominate every stage.
-                </p>
-
-                {/* DPS Calculator Tool */}
-                <div className="bg-card border rounded-lg p-8 max-w-6xl mx-auto mb-12">
-                    <h2 className="text-2xl font-bold mb-4">🎮 Team DPS Calculator</h2>
-                    <p className="text-muted-foreground mb-6">
-                        Build the optimal team based on your units and get personalized upgrade recommendations
-                    </p>
-                    <div className="text-center">
-                        <Link
-                            href="/calculator"
-                            className="inline-block px-8 py-4 bg-primary text-primary-foreground rounded-lg font-medium hover:bg-primary/90 text-lg"
-                        >
-                            Open Team Calculator →
-                        </Link>
-                        <p className="text-sm text-muted-foreground mt-4">
-                            Select your units, set their levels, and get AI-powered team recommendations
-                        </p>
-                    </div>
+        <div className="container mx-auto px-4 py-12">
+            {/* Hero Section */}
+            <section className="relative text-center mb-24 max-w-4xl mx-auto">
+                <div className="inline-block px-3 py-1 mb-6 text-xs font-semibold tracking-wider text-primary uppercase bg-primary/10 rounded-full border border-primary/20">
+                    The Ultimate Companion
                 </div>
-            </section>
-
-            {/* Active Codes Section */}
-            <section className="py-8">
-                <h2 className="text-3xl font-bold mb-6">🎁 Active Codes (December 2025)</h2>
-
-                {displayCodes.length > 0 ? (
-                    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-                        {displayCodes.map((code) => (
-                            <div
-                                key={code.id}
-                                className="border rounded-lg p-4 bg-green-50 dark:bg-green-950"
-                            >
-                                <div className="flex items-center justify-between mb-2">
-                                    <span className="font-mono font-bold text-lg">{code.code}</span>
-                                    <button
-                                        onClick={() => {
-                                            navigator.clipboard.writeText(code.code);
-                                            alert('Code copied!');
-                                        }}
-                                        className="px-3 py-1 bg-primary text-primary-foreground rounded hover:bg-primary/90 text-sm"
-                                    >
-                                        Copy
-                                    </button>
-                                </div>
-                                <div className="text-sm text-muted-foreground">
-                                    {code.rewards.map((reward, idx) => (
-                                        <span key={idx}>
-                                            {reward.quantity}x {reward.itemType}
-                                            {idx < code.rewards.length - 1 ? ' + ' : ''}
-                                        </span>
-                                    ))}
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                ) : (
-                    <p className="text-muted-foreground">No active codes available at the moment.</p>
-                )}
-
-                <div className="mt-6 text-center">
+                <h1 className="text-5xl md:text-7xl font-bold mb-8 tracking-tight bg-clip-text text-transparent bg-gradient-to-b from-white to-white/50 text-glow">
+                    MASTERY AWAITS
+                </h1>
+                <p className="text-xl text-muted-foreground mb-10 max-w-2xl mx-auto leading-relaxed">
+                    Dominate Anime Last Stand with advanced tools. Optimize your DPS, find the best units, and never miss a code.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                    <Link
+                        href="/calculator"
+                        className="px-8 py-4 bg-primary text-primary-foreground rounded-xl font-bold hover:bg-primary/90 transition-all hover:scale-105 shadow-lg shadow-primary/25"
+                    >
+                        Optimize Team
+                    </Link>
                     <Link
                         href="/codes"
-                        className="inline-block px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 font-medium"
+                        className="px-8 py-4 bg-white/5 text-foreground border border-white/10 rounded-xl font-bold hover:bg-white/10 transition-all hover:scale-105 backdrop-blur-sm"
                     >
-                        View All Codes →
+                        Get Active Codes
                     </Link>
                 </div>
             </section>
 
-            {/* Quick Stats & Features */}
-            <section className="py-12 grid md:grid-cols-3 gap-6">
-                <div className="text-center p-6 border rounded-lg">
-                    <div className="text-4xl font-bold text-primary mb-2">200+</div>
-                    <div className="text-lg font-semibold">Units Database</div>
-                    <p className="text-sm text-muted-foreground mt-2">
-                        Complete stats for all units
-                    </p>
-                </div>
-                <div className="text-center p-6 border rounded-lg">
-                    <div className="text-4xl font-bold text-primary mb-2">Real-time</div>
-                    <div className="text-lg font-semibold">DPS Calculator</div>
-                    <p className="text-sm text-muted-foreground mt-2">
-                        Optimize your team composition
-                    </p>
-                </div>
-                <div className="text-center p-6 border rounded-lg">
-                    <div className="text-4xl font-bold text-primary mb-2">Daily</div>
-                    <div className="text-lg font-semibold">Updated Codes</div>
-                    <p className="text-sm text-muted-foreground mt-2">
-                        Never miss a reward
-                    </p>
-                </div>
-            </section>
-
-            {/* Game Introduction */}
-            <section className="py-12 prose dark:prose-invert max-w-none">
-                <h2>📖 About Anime Last Stand</h2>
-                <p>
-                    <strong>Anime Last Stand</strong> is a popular tower defense game on Roblox featuring
-                    characters from various anime series. Players must strategically place and upgrade
-                    units to defend against waves of enemies across multiple challenging stages.
-                </p>
-                <p>
-                    The game features over <strong>200 unique units</strong> with different rarities,
-                    abilities, and elements. Success requires careful team composition, understanding
-                    unit synergies, and optimal resource management.
-                </p>
-            </section>
-
-            {/* FAQ Section */}
-            <section className="py-12">
-                <h2 className="text-3xl font-bold mb-8">❓ Frequently Asked Questions</h2>
-
-                <div className="space-y-4">
-                    <details className="border rounded-lg p-4">
-                        <summary className="font-semibold cursor-pointer">
-                            How do I use the DPS calculator?
-                        </summary>
-                        <p className="mt-2 text-muted-foreground">
-                            Select the units you own, specify their levels and techniques, then click
-                            &quot;Calculate&quot; to see the optimal team composition based on total DPS output.
-                        </p>
-                    </details>
-
-                    <details className="border rounded-lg p-4">
-                        <summary className="font-semibold cursor-pointer">
-                            What are the best units in Anime Last Stand?
-                        </summary>
-                        <p className="mt-2 text-muted-foreground">
-                            The best units vary by game mode and stage. Check our{' '}
-                            <Link href="/tier-list" className="text-primary hover:underline">
-                                Tier List
-                            </Link>{' '}
-                            for rankings by category, or use our calculator to find the optimal team
-                            for your specific units.
-                        </p>
-                    </details>
-
-                    <details className="border rounded-lg p-4">
-                        <summary className="font-semibold cursor-pointer">
-                            How do I redeem codes in Anime Last Stand?
-                        </summary>
-                        <p className="mt-2 text-muted-foreground">
-                            Click the &quot;Codes&quot; button in the game lobby, enter the code exactly as shown
-                            (case-sensitive), and click &quot;Redeem&quot;. Visit our{' '}
-                            <Link href="/codes" className="text-primary hover:underline">
-                                Codes page
-                            </Link>{' '}
-                            for all active codes.
-                        </p>
-                    </details>
-
-                    <details className="border rounded-lg p-4">
-                        <summary className="font-semibold cursor-pointer">
-                            How often are codes released?
-                        </summary>
-                        <p className="mt-2 text-muted-foreground">
-                            New codes are typically released during game updates, special events, and
-                            when the game reaches follower milestones. We update our codes page daily
-                            to ensure you never miss a reward.
-                        </p>
-                    </details>
+            {/* Tools Grid */}
+            <section className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-24">
+                <ToolCard
+                    title="DPS Calculator"
+                    description="Build the perfect team. Calculate DPS, analyze synergies, and get AI-powered upgrade recommendations."
+                    href="/calculator"
+                    icon={<Calculator className="h-6 w-6" />}
+                    className="md:col-span-2 lg:col-span-1"
+                />
+                <ToolCard
+                    title="Tier List"
+                    description="Rankings for every unit in the game. Filter by meta, story mode, and infinite mode viability."
+                    href="/tier-list"
+                    icon={<List className="h-6 w-6" />}
+                />
+                <ToolCard
+                    title="Unit Database"
+                    description="Complete stats for over 200+ units. Search by rarity, element, and ability type."
+                    href="/units"
+                    icon={<Database className="h-6 w-6" />}
+                    stats="200+ Units"
+                />
+                <ToolCard
+                    title="Active Codes"
+                    description="Don't miss out on free gems and shards. Updated daily with the latest working codes."
+                    href="/codes"
+                    icon={<Gift className="h-6 w-6" />}
+                    stats={`${activeCodes.length} Active`}
+                />
+                <ToolCard
+                    title="Items & Techniques"
+                    description="Browse all available items, evolution materials, and technique effects."
+                    href="/items"
+                    icon={<ExternalLink className="h-6 w-6" />}
+                />
+                <div className="group relative flex flex-col justify-center items-center overflow-hidden rounded-xl border border-dashed border-white/10 bg-white/5 p-6 hover:bg-white/10 transition-colors">
+                    <Users className="h-8 w-8 text-muted-foreground mb-4 group-hover:text-primary transition-colors" />
+                    <h3 className="text-lg font-bold text-muted-foreground group-hover:text-foreground">More Coming Soon</h3>
+                    <p className="text-xs text-muted-foreground mt-2">Community Features</p>
                 </div>
             </section>
+
+            {/* Live Data Sections */}
+            <div className="grid lg:grid-cols-2 gap-12">
+                {/* Latest Codes Preview */}
+                <section>
+                    <div className="flex items-center justify-between mb-8">
+                        <h2 className="text-2xl font-bold flex items-center gap-2">
+                            <Gift className="text-primary" /> Latest Codes
+                        </h2>
+                        <Link href="/codes" className="text-sm text-primary hover:underline">View All</Link>
+                    </div>
+                    <div className="space-y-4">
+                        {displayCodes.map((code) => (
+                            <div key={code.id} className="flex items-center justify-between p-4 bg-white/5 border border-white/5 rounded-lg hover:border-primary/50 transition-colors">
+                                <div>
+                                    <div className="font-mono font-bold text-lg text-primary">{code.code}</div>
+                                    <div className="text-xs text-muted-foreground flex gap-2 mt-1">
+                                        {code.rewards.slice(0, 2).map((r, i) => (
+                                            <span key={i} className="bg-white/5 px-2 py-0.5 rounded">{r.quantity}x {r.itemType}</span>
+                                        ))}
+                                    </div>
+                                </div>
+                                <button
+                                    onClick={() => {
+                                        navigator.clipboard.writeText(code.code);
+                                    }}
+                                    className="px-3 py-1.5 text-xs font-medium bg-white/10 hover:bg-white/20 rounded transition-colors"
+                                >
+                                    Copy
+                                </button>
+                            </div>
+                        ))}
+                    </div>
+                </section>
+
+                {/* About & Info */}
+                <section className="prose prose-invert max-w-none">
+                    <h2 className="text-2xl font-bold flex items-center gap-2 not-prose mb-8">
+                        <Database className="text-primary" /> About The Project
+                    </h2>
+                    <p className="text-muted-foreground">
+                        This open-source project aims to provide the most accurate and up-to-date tools for the Anime Last Stand community.
+                        We automatically scrape the Wiki and verify data to ensure your calculations are precise.
+                    </p>
+                    <div className="grid grid-cols-2 gap-4 not-prose mt-8">
+                        <div className="p-4 bg-primary/5 border border-primary/10 rounded-lg text-center">
+                            <div className="text-3xl font-bold text-primary">Daily</div>
+                            <div className="text-xs text-muted-foreground uppercase tracking-wider mt-1">Updates</div>
+                        </div>
+                        <div className="p-4 bg-primary/5 border border-primary/10 rounded-lg text-center">
+                            <div className="text-3xl font-bold text-primary">100%</div>
+                            <div className="text-xs text-muted-foreground uppercase tracking-wider mt-1">Free</div>
+                        </div>
+                    </div>
+                </section>
+            </div>
         </div>
     );
 }

@@ -21,6 +21,7 @@ export interface Unit {
     canEvolve: boolean;
     isEvolved: boolean;
     upgrades: UnitUpgrade[];
+    imageUrl?: string;
 }
 
 export interface Technique {
