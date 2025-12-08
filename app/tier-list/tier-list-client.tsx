@@ -5,9 +5,10 @@ import { Unit } from '@/lib/types';
 
 interface TierListClientProps {
     initialUnits: Unit[];
+    lastUpdated: string;
 }
 
-export default function TierListClient({ initialUnits }: TierListClientProps) {
+export default function TierListClient({ initialUnits, lastUpdated }: TierListClientProps) {
     const units = initialUnits;
 
     const [selectedCategory, setSelectedCategory] = useState('overall');
@@ -60,12 +61,19 @@ export default function TierListClient({ initialUnits }: TierListClientProps) {
             {/* Page Header */}
             <div className="mb-8">
                 <h1 className="text-4xl md:text-5xl font-bold mb-4">
-                    Anime Last Stand Tier List - Complete Unit Rankings
+                    Anime Last Stand Tier List - Best Units Ranked
                 </h1>
+                <div className="flex flex-wrap items-center gap-4 mb-4">
+                    <span className="inline-flex items-center px-3 py-1 rounded-full bg-primary/10 text-primary border border-primary/20 text-sm font-semibold">
+                        ✅ Updated: {lastUpdated}
+                    </span>
+                    <span className="px-3 py-1 bg-muted rounded-full text-sm font-medium border border-border/50">
+                        Based on Latest Meta
+                    </span>
+                </div>
                 <p className="text-lg text-muted-foreground">
-                    Units ranked by maximum DPS output. S+ tier represents the strongest units in the game.
+                    Units ranked by maximum DPS output. S+ tier represents the strongest units for Story, Raid, and Infinite modes.
                 </p>
-
             </div>
 
             {/* Category Tabs */}
@@ -132,6 +140,61 @@ export default function TierListClient({ initialUnits }: TierListClientProps) {
                     </div>
                 ))}
             </div>
+
+            {/* Unit Analysis Section */}
+            <section className="mt-12 mb-12">
+                <h2 className="text-3xl font-bold mb-6">🔍 Deep Dive: Top Tier Units Analysis</h2>
+                <div className="grid md:grid-cols-2 gap-6">
+                    <div className="border rounded-xl p-6 bg-card">
+                        <h3 className="text-xl font-bold mb-3 text-purple-400">Why S+ Rank?</h3>
+                        <p className="text-muted-foreground mb-4">
+                            S+ Rank units define the current meta. These units typically possess:
+                        </p>
+                        <ul className="list-disc list-inside space-y-2 text-muted-foreground">
+                            <li><strong>Global Range (or near-global):</strong> Ability to hit enemies across the map.</li>
+                            <li><strong>Percentage-based Damage:</strong> Scaling damage that handles high-HP bosses.</li>
+                            <li><strong>Hybrid Elements:</strong> Advantage against multiple enemy types.</li>
+                            <li><strong>Status Effects:</strong> Burn, Freeze, or Stun capabilities.</li>
+                        </ul>
+                    </div>
+                    <div className="border rounded-xl p-6 bg-card">
+                        <h3 className="text-xl font-bold mb-3 text-blue-400">Best for Infinite Mode</h3>
+                        <p className="text-muted-foreground mb-4">
+                            For Infinite Mode leaderboards, you need a specific composition:
+                        </p>
+                        <ul className="list-disc list-inside space-y-2 text-muted-foreground">
+                            <li>1-2 Money Farm Units (Essential for economy)</li>
+                            <li>1 Main DPS (S+ Tier)</li>
+                            <li>1 Buffer Unit (Damage amplifier)</li>
+                            <li>1 Slow/Stun Support (Crowd control)</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            {/* New Player Guide */}
+            <section className="mb-12">
+                <h2 className="text-3xl font-bold mb-6">🔰 New Player Guide: Who to Summon?</h2>
+                <div className="bg-muted/30 border rounded-xl p-6">
+                    <p className="mb-4 text-lg">
+                        Just starting out? Don't worry about getting S+ units immediately. Here is a progression path:
+                    </p>
+                    <div className="grid sm:grid-cols-3 gap-4 text-center">
+                        <div className="p-4 bg-background border rounded-lg">
+                            <div className="font-bold text-lg mb-1">Early Game</div>
+                            <div className="text-sm text-muted-foreground">Focus on decent AoE (Area of Effect) units in B or A Tier. They are cheap to deploy and clear early waves easily.</div>
+                        </div>
+                        <div className="p-4 bg-background border rounded-lg">
+                            <div className="font-bold text-lg mb-1">Mid Game</div>
+                            <div className="text-sm text-muted-foreground">Start looking for units with Status Effects (Burn/Bleed). They help kill bosses with high HP.</div>
+                        </div>
+                        <div className="p-4 bg-background border rounded-lg">
+                            <div className="font-bold text-lg mb-1">End Game</div>
+                            <div className="text-sm text-muted-foreground">Save Gems for specific S+ banners. You need specific traits like "Godspeed" or "Glitched" to compete.</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
             {/* SEO Content */}
             <section className="mt-12 prose dark:prose-invert max-w-none">
@@ -218,6 +281,43 @@ export default function TierListClient({ initialUnits }: TierListClientProps) {
                     Try Team Calculator →
                 </a>
             </div>
+
+            {/* Structured Data */}
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify({
+                        "@context": "https://schema.org",
+                        "@type": "FAQPage",
+                        "mainEntity": [
+                            {
+                                "@type": "Question",
+                                "name": "Who is the best unit in Anime Last Stand?",
+                                "acceptedAnswer": {
+                                    "@type": "Answer",
+                                    "text": "Currently, units in the S+ Tier are considered the best due to their high DPS and utility. Check the top of our list for the specific names as the meta changes with every update."
+                                }
+                            },
+                            {
+                                "@type": "Question",
+                                "name": "How often is the Tier List updated?",
+                                "acceptedAnswer": {
+                                    "@type": "Answer",
+                                    "text": "We update this tier list immediately after every game update, usually within 24 hours of new units being released and tested."
+                                }
+                            },
+                            {
+                                "@type": "Question",
+                                "name": "What does S+ Tier mean?",
+                                "acceptedAnswer": {
+                                    "@type": "Answer",
+                                    "text": "S+ Tier represents the absolute strongest units in the game, typically 'Godly' or 'Ultimate' rarity units that are essential for clearing the hardest content."
+                                }
+                            }
+                        ]
+                    })
+                }}
+            />
         </div>
     );
 }

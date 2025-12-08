@@ -7,9 +7,10 @@ import { Calculator, List, Database, Gift, Users, ExternalLink } from 'lucide-re
 
 interface HomeClientProps {
     activeCodes: Code[];
+    lastUpdated: string;
 }
 
-export default function HomeClient({ activeCodes }: HomeClientProps) {
+export default function HomeClient({ activeCodes, lastUpdated }: HomeClientProps) {
     const displayCodes = activeCodes.slice(0, 3); // Show top 3 codes
 
     return (
@@ -17,10 +18,10 @@ export default function HomeClient({ activeCodes }: HomeClientProps) {
             {/* Hero Section */}
             <section className="relative text-center mb-24 max-w-4xl mx-auto">
                 <div className="inline-block px-3 py-1 mb-6 text-xs font-semibold tracking-wider text-primary uppercase bg-primary/10 rounded-full border border-primary/20">
-                    The Ultimate Companion
+                    Updated: {lastUpdated}
                 </div>
-                <h1 className="text-5xl md:text-7xl font-bold mb-8 tracking-tight bg-clip-text text-transparent bg-gradient-to-b from-white to-white/50 text-glow">
-                    MASTERY AWAITS
+                <h1 className="text-4xl md:text-6xl font-bold mb-8 tracking-tight bg-clip-text text-transparent bg-gradient-to-b from-white to-white/50 text-glow">
+                    Anime Last Stand Tools & Calculator
                 </h1>
                 <p className="text-xl text-muted-foreground mb-10 max-w-2xl mx-auto leading-relaxed">
                     Dominate Anime Last Stand with advanced tools. Optimize your DPS, find the best units, and never miss a code.
@@ -38,6 +39,15 @@ export default function HomeClient({ activeCodes }: HomeClientProps) {
                     >
                         Get Active Codes
                     </Link>
+                    <a
+                        href="https://discord.gg/animelaststand"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="px-8 py-4 bg-[#5865F2] text-white rounded-xl font-bold hover:bg-[#4752C4] transition-all hover:scale-105 shadow-lg shadow-[#5865F2]/25 flex items-center justify-center gap-2"
+                    >
+                        <Users className="h-5 w-5" />
+                        Join Discord
+                    </a>
                 </div>
             </section>
 
@@ -76,11 +86,16 @@ export default function HomeClient({ activeCodes }: HomeClientProps) {
                     href="/items"
                     icon={<ExternalLink className="h-6 w-6" />}
                 />
-                <div className="group relative flex flex-col justify-center items-center overflow-hidden rounded-xl border border-dashed border-white/10 bg-white/5 p-6 hover:bg-white/10 transition-colors">
-                    <Users className="h-8 w-8 text-muted-foreground mb-4 group-hover:text-primary transition-colors" />
-                    <h3 className="text-lg font-bold text-muted-foreground group-hover:text-foreground">More Coming Soon</h3>
-                    <p className="text-xs text-muted-foreground mt-2">Community Features</p>
-                </div>
+                <a
+                    href="https://discord.gg/animelaststand"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group relative flex flex-col justify-center items-center overflow-hidden rounded-xl border border-dashed border-[#5865F2]/30 bg-[#5865F2]/5 p-6 hover:bg-[#5865F2]/10 transition-colors"
+                >
+                    <Users className="h-8 w-8 text-[#5865F2] mb-4 group-hover:scale-110 transition-transform" />
+                    <h3 className="text-lg font-bold text-[#5865F2]">Official Discord</h3>
+                    <p className="text-xs text-muted-foreground mt-2 group-hover:text-[#5865F2]/80">Join the Community</p>
+                </a>
             </section>
 
             {/* Live Data Sections */}
@@ -138,6 +153,24 @@ export default function HomeClient({ activeCodes }: HomeClientProps) {
                     </div>
                 </section>
             </div>
+            {/* WebSite Schema */}
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify({
+                        "@context": "https://schema.org",
+                        "@type": "WebSite",
+                        "name": "Anime Last Stand Tools",
+                        "url": "https://als-tools.com",
+                        "potentialAction": {
+                            "@type": "SearchAction",
+                            "target": "https://als-tools.com/units?search={search_term_string}",
+                            "query-input": "required name=search_term_string"
+                        },
+                        "description": "The ultimate operational hub for Anime Last Stand players. DPS Calculator, Tier Lists, and Active Codes."
+                    })
+                }}
+            />
         </div>
     );
 }

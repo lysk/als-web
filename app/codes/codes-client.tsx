@@ -6,9 +6,10 @@ import { Code } from '@/lib/types';
 interface CodesClientProps {
     activeCodes: Code[];
     expiredCodes: Code[];
+    lastUpdated: string;
 }
 
-export default function CodesClient({ activeCodes, expiredCodes }: CodesClientProps) {
+export default function CodesClient({ activeCodes, expiredCodes, lastUpdated }: CodesClientProps) {
     const [showExpired, setShowExpired] = useState(false);
     const [copiedCode, setCopiedCode] = useState<string | null>(null);
 
@@ -23,79 +24,82 @@ export default function CodesClient({ activeCodes, expiredCodes }: CodesClientPr
             {/* Page Header */}
             <div className="mb-8">
                 <h1 className="text-4xl md:text-5xl font-bold mb-4">
-                    Anime Last Stand Active Codes (December 2025)
+                    Anime Last Stand Active Codes
                 </h1>
+                <div className="flex flex-wrap items-center gap-4 mb-4">
+                    <span className="inline-flex items-center px-3 py-1 rounded-full bg-primary/10 text-primary border border-primary/20 text-sm font-semibold">
+                        🔥 Last Updated: {lastUpdated}
+                    </span>
+                    <span className="text-sm text-muted-foreground">
+                        {activeCodes.length} codes currently active
+                    </span>
+                </div>
                 <p className="text-lg text-muted-foreground">
                     Get free gems, shards, pearls, and more! All codes are tested and working.
                 </p>
-
             </div>
 
             {/* Active Codes */}
             <section className="mb-12">
                 <div className="flex items-center gap-3 mb-6">
-                    <h2 className="text-3xl font-bold">Active Codes</h2>
-                    <span className="px-3 py-1 bg-green-500/10 text-green-600 dark:text-green-400 rounded-full text-sm font-bold border border-green-500/20">
-                        {activeCodes.length} Available
-                    </span>
+                    <h2 className="text-3xl font-bold">Active Codes List</h2>
                 </div>
 
                 {activeCodes.length > 0 ? (
-                    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                        {activeCodes.map((code) => (
-                            <div
-                                key={code.id}
-                                className="group relative border rounded-xl overflow-hidden bg-card hover:shadow-lg transition-all duration-300 hover:border-primary/50"
-                            >
-                                {/* Glow Effect */}
-                                <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-
-                                <div className="p-5 relative z-10">
-                                    <div className="flex justify-between items-start mb-4">
-                                        <div>
-                                            <div className="text-xs text-muted-foreground uppercase font-bold tracking-wider mb-1">
-                                                Code
-                                            </div>
-                                            <div className="flex items-center gap-2">
-                                                <h3 className="font-mono font-black text-2xl tracking-tight text-primary">
+                    <div className="border rounded-xl overflow-hidden bg-card shadow-sm">
+                        <div className="overflow-x-auto">
+                            <table className="w-full text-left">
+                                <thead className="bg-muted/50 text-muted-foreground font-medium uppercase text-xs">
+                                    <tr>
+                                        <th className="px-6 py-4 w-1/3">Code</th>
+                                        <th className="px-6 py-4">Rewards</th>
+                                        <th className="px-6 py-4 w-[100px] text-center">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="divide-y divide-border">
+                                    {activeCodes.map((code) => (
+                                        <tr key={code.id} className="group hover:bg-muted/30 transition-colors">
+                                            <td className="px-6 py-4">
+                                                <div className="font-mono font-black text-xl tracking-wider text-primary break-all">
                                                     {code.code}
-                                                </h3>
-                                            </div>
-                                        </div>
-                                        <button
-                                            onClick={() => copyToClipboard(code.code)}
-                                            className={`h-9 px-4 rounded-lg font-medium text-sm transition-all duration-200 flex items-center gap-2 ${copiedCode === code.code
-                                                ? 'bg-green-500 text-white shadow-green-500/20 shadow-lg'
-                                                : 'bg-secondary hover:bg-primary hover:text-primary-foreground'
-                                                }`}
-                                        >
-                                            {copiedCode === code.code ? (
-                                                <>✓ Copied</>
-                                            ) : (
-                                                <>Copy</>
-                                            )}
-                                        </button>
-                                    </div>
-
-                                    <div className="space-y-3">
-                                        <div className="text-xs text-muted-foreground font-medium uppercase tracking-wider">
-                                            Rewards
-                                        </div>
-                                        <div className="flex flex-wrap gap-2">
-                                            {code.rewards.map((reward, idx) => (
-                                                <span
-                                                    key={idx}
-                                                    className="inline-flex items-center px-2.5 py-1 rounded-md bg-background border shadow-sm text-sm font-medium"
+                                                </div>
+                                                <div className="text-xs text-green-600 dark:text-green-400 font-bold mt-1.5 flex items-center gap-1.5">
+                                                    <span className="relative flex h-2 w-2">
+                                                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                                                        <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                                                    </span>
+                                                    Active
+                                                </div>
+                                            </td>
+                                            <td className="px-6 py-4">
+                                                <div className="flex flex-wrap gap-2">
+                                                    {code.rewards.map((reward, idx) => (
+                                                        <span
+                                                            key={idx}
+                                                            className="inline-flex items-center px-2.5 py-1 rounded-md bg-background border border-border/50 shadow-sm text-sm font-medium"
+                                                        >
+                                                            <span className="text-primary mr-1.5 font-bold">{reward.quantity}x</span>
+                                                            <span className="text-foreground/80">{reward.itemType}</span>
+                                                        </span>
+                                                    ))}
+                                                </div>
+                                            </td>
+                                            <td className="px-6 py-4 text-center">
+                                                <button
+                                                    onClick={() => copyToClipboard(code.code)}
+                                                    className={`h-10 px-6 rounded-lg font-bold text-sm transition-all duration-200 shadow-sm hover:shadow-md ${copiedCode === code.code
+                                                        ? 'bg-green-600 text-white scale-105'
+                                                        : 'bg-primary text-primary-foreground hover:bg-primary/90'
+                                                        }`}
                                                 >
-                                                    <span className="text-primary mr-1.5 font-bold">{reward.quantity}x</span>
-                                                    <span className="text-foreground/80">{reward.itemType}</span>
-                                                </span>
-                                            ))}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
+                                                    {copiedCode === code.code ? 'COPIED!' : 'COPY'}
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 ) : (
                     <div className="text-center py-12 border rounded-xl bg-muted/30 border-dashed">
@@ -159,31 +163,54 @@ export default function CodesClient({ activeCodes, expiredCodes }: CodesClientPr
             </section>
 
             {/* How to Redeem Codes */}
-            <section className="mb-12 prose dark:prose-invert max-w-none">
-                <h2>📝 How to Redeem Codes in Anime Last Stand</h2>
-                <p>Follow these simple steps to redeem your codes:</p>
-                <ol>
-                    <li>
-                        <strong>Launch Anime Last Stand</strong> on Roblox and wait for the game
-                        to load completely
-                    </li>
-                    <li>
-                        <strong>Find the Codes button</strong> - Look for the "Codes" icon on the
-                        left side of your screen in the lobby
-                    </li>
-                    <li>
-                        <strong>Enter the code</strong> - Copy the code from above and paste it
-                        into the text field (codes are case-sensitive!)
-                    </li>
-                    <li>
-                        <strong>Click Redeem</strong> - Hit the redeem button and your rewards
-                        will be added to your account instantly
-                    </li>
-                </ol>
-                <p className="bg-yellow-50 dark:bg-yellow-950/40 border-l-4 border-yellow-500 p-4 my-4 text-yellow-800 dark:text-yellow-200 shadow-sm">
-                    <strong>⚠️ Important:</strong> Codes are case-sensitive and must be entered
-                    exactly as shown. Make sure to copy and paste to avoid typos!
-                </p>
+            <section className="mb-12 max-w-none" id="how-to-redeem">
+                <div className="bg-card border rounded-xl p-8 shadow-sm">
+                    <h2 className="text-3xl font-bold mb-6">📝 How to Redeem Anime Last Stand Codes</h2>
+                    <div className="grid md:grid-cols-2 gap-8 items-center">
+                        <div>
+                            <p className="mb-4 text-muted-foreground">Follow these simple steps to claim your rewards instantly:</p>
+                            <ol className="space-y-4">
+                                <li className="flex gap-4">
+                                    <span className="flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-full bg-primary text-primary-foreground font-bold">1</span>
+                                    <div>
+                                        <strong className="block text-foreground">Launch the Game</strong>
+                                        <span className="text-sm text-muted-foreground">Open Anime Last Stand on Roblox.</span>
+                                    </div>
+                                </li>
+                                <li className="flex gap-4">
+                                    <span className="flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-full bg-primary text-primary-foreground font-bold">2</span>
+                                    <div>
+                                        <strong className="block text-foreground">Open Codes Menu</strong>
+                                        <span className="text-sm text-muted-foreground">Click the "Codes" button (bird icon) on the left side of the screen.</span>
+                                    </div>
+                                </li>
+                                <li className="flex gap-4">
+                                    <span className="flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-full bg-primary text-primary-foreground font-bold">3</span>
+                                    <div>
+                                        <strong className="block text-foreground">Enter Code</strong>
+                                        <span className="text-sm text-muted-foreground">Copy a valid code from our list and paste it into the box.</span>
+                                    </div>
+                                </li>
+                                <li className="flex gap-4">
+                                    <span className="flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-full bg-primary text-primary-foreground font-bold">4</span>
+                                    <div>
+                                        <strong className="block text-foreground">Redeem</strong>
+                                        <span className="text-sm text-muted-foreground">Click "Redeem" to get your Gems and other rewards!</span>
+                                    </div>
+                                </li>
+                            </ol>
+                        </div>
+                        <div className="bg-muted/30 rounded-lg p-6 border border-dashed flex items-center justify-center text-center">
+                            <div className="space-y-2">
+                                <div className="text-4xl">💡</div>
+                                <h4 className="font-bold">Pro Tip</h4>
+                                <p className="text-sm text-muted-foreground">
+                                    Codes are case-sensitive. Always copy and paste directly from our list to avoid typos!
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </section>
 
             {/* FAQ */}
@@ -273,6 +300,59 @@ export default function CodesClient({ activeCodes, expiredCodes }: CodesClientPr
                     Try DPS Calculator →
                 </a>
             </div>
+
+            {/* Structured Data for SEO */}
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify({
+                        "@context": "https://schema.org",
+                        "@type": "FAQPage",
+                        "mainEntity": [
+                            {
+                                "@type": "Question",
+                                "name": "Where can I find new Anime Last Stand codes?",
+                                "acceptedAnswer": {
+                                    "@type": "Answer",
+                                    "text": "New codes are typically announced on the game's official social media channels (Twitter, Discord, YouTube) and during game updates. We monitor all these sources and update this page daily."
+                                }
+                            },
+                            {
+                                "@type": "Question",
+                                "name": "How often are new codes released?",
+                                "acceptedAnswer": {
+                                    "@type": "Answer",
+                                    "text": "The developers release new codes during major game updates (usually every 1-2 weeks), special events, holidays, and when the game reaches follower milestones on social media."
+                                }
+                            },
+                            {
+                                "@type": "Question",
+                                "name": "Do codes expire in Anime Last Stand?",
+                                "acceptedAnswer": {
+                                    "@type": "Answer",
+                                    "text": "Yes, most codes expire after a certain period or when a new update is released. Event codes typically expire when the event ends."
+                                }
+                            },
+                            {
+                                "@type": "Question",
+                                "name": "Why isn't my code working?",
+                                "acceptedAnswer": {
+                                    "@type": "Answer",
+                                    "text": "If a code isn't working, ensure you are copying it exactly (case-sensitive), check if it has expired in our expired codes list, or verify you haven't already redeemed it."
+                                }
+                            },
+                            {
+                                "@type": "Question",
+                                "name": "What rewards can I get from codes?",
+                                "acceptedAnswer": {
+                                    "@type": "Answer",
+                                    "text": "Codes typically reward players with Technique Shards, Pearls, Reroll Locks, Gems, and Spirit Shards which are essential for summoning and upgrading units."
+                                }
+                            }
+                        ]
+                    })
+                }}
+            />
         </div>
     );
 }
