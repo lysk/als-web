@@ -4,7 +4,7 @@ import Script from "next/script";
 import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"], display: 'swap' });
 
 export const metadata: Metadata = {
   title: "Anime Last Stand - Team Optimizer & Active Codes | ALS Tools",
@@ -27,9 +27,9 @@ export default function RootLayout({
       <body className={inter.className}>
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-RH20G5H022"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
         />
-        <Script id="google-analytics" strategy="afterInteractive">
+        <Script id="google-analytics" strategy="lazyOnload">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
@@ -41,7 +41,7 @@ export default function RootLayout({
         <Navbar />
         <main className="min-h-screen relative overflow-hidden">
           {/* Subtle background glow effect */}
-          <div className="absolute top-0 left-0 w-full h-[500px] bg-primary/5 rounded-full blur-[120px] -translate-y-1/2 pointer-events-none" />
+          <div className="hidden md:block absolute top-0 left-0 w-full h-[500px] bg-primary/5 rounded-full blur-[120px] -translate-y-1/2 pointer-events-none" />
 
           {children}
         </main>
